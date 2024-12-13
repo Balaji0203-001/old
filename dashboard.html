@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Management Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#" id="viewBills">View Bills</a></li>
+                <li><a href="#" id="viewSuppliers">View Suppliers</a></li>
+                <li><a href="#" id="searchBills">Search Bills</a></li>
+                <li><a href="#" id="addSupplier">Add Supplier</a></li>
+                <li><a href="#" id="showTotals">Show Totals</a></li>
+                <li><a href="#" id="addBillButton">Add New Bill</a></li>
+                <li><a href="#" id="logoutButton">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Tech Titans Bill Management Dashboard</h1>
+
+            <div class="bill-section" id="billSection" style="display:none;">
+                <h2>Your Bills</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Shop Name</th>
+                            <th>Contact Number</th>
+                            <th>Amount</th>
+                            <th>Bill Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="billsTableBody">
+                        <!-- Bills will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="totals-section" id="totalsSection" style="display:none;">
+                <h2>Bill Totals</h2>
+                <p id="totalAmount"></p>
+            </div>
+
+            <div class="search-section" id="searchSection" style="display:none;">
+                <h2>Search Bills</h2>
+                <input type="text" id="searchInput" placeholder="Search by shop name...">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Shop Name</th>
+                            <th>Contact Number</th>
+                            <th>Amount</th>
+                            <th>Bill Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchResults">
+                        <!-- Search results will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="supplier-section" id="supplierSection" style="display:none;">
+                <h2>Add Supplier</h2>
+                <form id="supplierForm">
+                    <label for="supplierName">Supplier Name</label>
+                    <input type="text" id="supplierName" name="supplierName" required>
+
+                    <label for="supplierContact">Contact Number</label>
+                    <input type="tel" id="supplierContact" name="supplierContact" required pattern="[0-9]{10}">
+
+                    <label for="supplierAddress">Address</label>
+                    <textarea id="supplierAddress" name="supplierAddress" rows="4" required></textarea>
+
+                    <label for="supplierEmail">Email</label>
+                    <input type="email" id="supplierEmail" name="supplierEmail" required>
+
+                    <button type="submit">Submit Supplier</button>
+                </form>
+            </div>
+
+            <div class="supplier-list-section" id="supplierListSection" style="display:none;">
+                <h2>Your Suppliers</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Contact Number</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="suppliersTableBody">
+                        <!-- Suppliers will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bill-form-section" id="billFormSection" style="display:none;">
+                <h2>Add Bill</h2>
+                <form id="billForm">
+                    <label for="shopName">Shop Name</label>
+                    <input type="text" id="shopName" name="shopName" required>
+
+                    <label for="billID">Contact Numer</label>
+                    <input type="text" id="billID" name="billID" required>
+
+                    <label for="description">Material</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" name="amount" required>
+
+                    <label for="payerName">Paid By</label>
+                    <input type="text" id="payerName" name="payerName" required>
+
+                    <label for="returnPaid">Return Paid By</label>
+                    <input type="text" id="returnPaid" name="returnPaid" required>
+
+                    <label for="billDate">Bill Date</label>
+                    <input type="date" id="billDate" name="billDate" required>
+
+                    <label for="billImage">Bill Image</label>
+                    <input type="file" id="billImage" name="billImage" accept="image/*" required>
+
+                    <button type="submit">Submit Bill</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
