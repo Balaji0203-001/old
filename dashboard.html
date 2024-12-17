@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bill Management Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="DashBoard.css">
 </head>
-
 <body>
     <div class="dashboard-container">
         <div class="sidebar">
             <h2>Menu</h2>
             <ul>
                 <li><a href="#" id="viewBills">View Bills</a></li>
-                <li><a href="#" id="viewSuppliers">View Suppliers</a></li>
                 <li><a href="#" id="searchBills">Search Bills</a></li>
                 <li><a href="#" id="addSupplier">Add Supplier</a></li>
+                <li><a href="#" id="viewSuppliers">View Suppliers</a></li>
                 <li><a href="#" id="showTotals">Show Totals</a></li>
                 <li><a href="#" id="addBillButton">Add New Bill</a></li>
                 <li><a href="#" id="logoutButton">Logout</a></li>
             </ul>
         </div>
         <div class="main-content">
-            <h1>Tech Titans Bill Management Dashboard</h1>
+            <h1>Welcome to the Bill Management Dashboard</h1>
 
-            <div class="bill-section" id="billSection" style="display:none;">
+            <!-- Bill Section -->
+            <div class="bill-section" id="billSection">
                 <h2>Your Bills</h2>
                 <table>
                     <thead>
                         <tr>
+                            <th>Bill ID</th>
                             <th>Shop Name</th>
-                            <th>Contact Number</th>
                             <th>Amount</th>
                             <th>Bill Date</th>
                             <th>Actions</th>
@@ -43,22 +42,23 @@
                 </table>
             </div>
 
+            <!-- Totals Section -->
             <div class="totals-section" id="totalsSection" style="display:none;">
                 <h2>Bill Totals</h2>
                 <p id="totalAmount"></p>
             </div>
 
+            <!-- Search Section -->
             <div class="search-section" id="searchSection" style="display:none;">
                 <h2>Search Bills</h2>
                 <input type="text" id="searchInput" placeholder="Search by shop name...">
                 <table>
                     <thead>
                         <tr>
+                            <th>Bill ID</th>
                             <th>Shop Name</th>
-                            <th>Contact Number</th>
                             <th>Amount</th>
                             <th>Bill Date</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="searchResults">
@@ -67,34 +67,72 @@
                 </table>
             </div>
 
-            <div class="supplier-section" id="supplierSection" style="display:none;">
-                <h2>Add Supplier</h2>
-                <form id="supplierForm">
-                    <label for="supplierName">Supplier Name</label>
-                    <input type="text" id="supplierName" name="supplierName" required>
+            <!-- Add Bill Section -->
+            <div class="add-bill-section" id="addBillSection" style="display:none;">
+                <h2>Add New Bill</h2>
+                <form id="addBillForm">
+                    <label for="shopName">Shop Name:</label>
+                    <input type="text" id="shopName" name="shopName" required>
 
-                    <label for="supplierContact">Contact Number</label>
-                    <input type="tel" id="supplierContact" name="supplierContact" required pattern="[0-9]{10}">
+                    <h3>Items</h3>
+                    <div id="itemsSection">
+                        <div class="item">
+                            <input type="text" placeholder="Item Name" class="itemName" required>
+                            <input type="number" placeholder="Quantity" class="itemQuantity" required>
+                            <input type="number" placeholder="Price per Item" class="itemPrice" required>
+                        </div>
+                    </div>
+                    <button type="button" id="addMoreItemsButton">Add More Items</button>
 
-                    <label for="supplierAddress">Address</label>
-                    <textarea id="supplierAddress" name="supplierAddress" rows="4" required></textarea>
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required>
 
-                    <label for="supplierEmail">Email</label>
-                    <input type="email" id="supplierEmail" name="supplierEmail" required>
+                    <label for="paidBy">Paid By:</label>
+                    <input type="text" id="paidBy" name="paidBy" required>
 
-                    <button type="submit">Submit Supplier</button>
+                    <label for="returnPaidBy">Return Paid By:</label>
+                    <input type="text" id="returnPaidBy" name="returnPaidBy" required>
+
+                    <label for="billImage">Bill Image:</label>
+                    <input type="file" id="billImage" name="billImage" accept="image/*" required>
+
+                    <label for="billDate">Bill Date:</label>
+                    <input type="date" id="billDate" name="billDate" required>
+
+                    <button type="submit">Add Bill</button>
                 </form>
             </div>
 
-            <div class="supplier-list-section" id="supplierListSection" style="display:none;">
+            <!-- Add Supplier Section -->
+            <div class="add-supplier-section" id="addSupplierSection" style="display:none;">
+                <h2>Add New Supplier</h2>
+                <form id="addSupplierForm">
+                    <label for="supplierName">Supplier Name:</label>
+                    <input type="text" id="supplierName" name="supplierName" required>
+
+                    <label for="supplierContact">Supplier Contact:</label>
+                    <input type="text" id="supplierContact" name="supplierContact" required>
+
+                    <label for="supplierShop">Supplier Shop Name:</label>
+                    <input type="text" id="supplierShop" name="supplierShop" required>
+
+                    <label for="supplierAddress">Address (Google Map Link):</label>
+                    <input type="text" id="supplierAddress" name="supplierAddress" required>
+
+                    <button type="submit">Add Supplier</button>
+                </form>
+            </div>
+
+            <!-- View Suppliers Section -->
+            <div class="supplier-section" id="supplierSection" style="display:none;">
                 <h2>Your Suppliers</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Supplier Name</th>
-                            <th>Contact Number</th>
-                            <th>Address</th>
-                            <th>Email</th>
+                            <th>Supplier ID</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Shop</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -103,41 +141,9 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="bill-form-section" id="billFormSection" style="display:none;">
-                <h2>Add Bill</h2>
-                <form id="billForm">
-                    <label for="shopName">Shop Name</label>
-                    <input type="text" id="shopName" name="shopName" required>
-
-                    <label for="billID">Contact Numer</label>
-                    <input type="text" id="billID" name="billID" required>
-
-                    <label for="description">Material</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
-
-                    <label for="amount">Amount</label>
-                    <input type="number" id="amount" name="amount" required>
-
-                    <label for="payerName">Paid By</label>
-                    <input type="text" id="payerName" name="payerName" required>
-
-                    <label for="returnPaid">Return Paid By</label>
-                    <input type="text" id="returnPaid" name="returnPaid" required>
-
-                    <label for="billDate">Bill Date</label>
-                    <input type="date" id="billDate" name="billDate" required>
-
-                    <label for="billImage">Bill Image</label>
-                    <input type="file" id="billImage" name="billImage" accept="image/*" required>
-
-                    <button type="submit">Submit Bill</button>
-                </form>
-            </div>
         </div>
     </div>
 
-    <script src="dashboard.js"></script>
+    <script src="DashBoard.js"></script>
 </body>
-
 </html>

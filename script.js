@@ -7,6 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpForm = document.getElementById('signUpForm');
     const signInForm = document.getElementById('signInForm');
 
+    const signUpButton = document.getElementById('signUpButton');
+    const signInButton = document.getElementById('signInButton');
+
+    const showLoading = (button) => {
+        button.classList.add('loading');
+    };
+
+    const hideLoading = (button) => {
+        button.classList.remove('loading');
+    };
+
     toSignInLink.addEventListener('click', () => {
         signUpContainer.classList.remove('active');
         signInContainer.classList.add('active');
@@ -20,51 +31,71 @@ document.addEventListener('DOMContentLoaded', () => {
     if (signUpForm) {
         signUpForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const signUpMessage = document.getElementById('signUpMessage');
+            showLoading(signUpButton);
 
-            if (password !== confirmPassword) {
-                signUpMessage.textContent = 'Passwords do not match!';
-                return;
-            }
+            setTimeout(() => {
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const signUpMessage = document.getElementById('signUpMessage');
 
-            // Mock API request
-            signUpMessage.textContent = 'Sign up successful!';
-            signUpMessage.style.color = 'green';
+                if (password !== confirmPassword) {
+                    signUpMessage.textContent = 'Passwords do not match!';
+                    hideLoading(signUpButton);
+                    return;
+                }
+
+                const userData = {
+                    username: username,
+                    email: email,
+                    password: password
+                };
+
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                users.push(userData);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                signUpMessage.textContent = 'Sign up successful!';
+                signUpMessage.style.color = 'green';
+
+                // Switch to sign in
+                setTimeout(() => {
+                    hideLoading(signUpButton);
+                    signUpContainer.classList.remove('active');
+                    signInContainer.classList.add('active');
+                }, 1000);
+            }, 1000); // Simulate network delay
         });
     }
 
     if (signInForm) {
         signInForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const username = document.getElementById('signInUsername').value;
-            const password = document.getElementById('signInPassword').value;
-            const signInMessage = document.getElementById('signInMessage');
+            showLoading(signInButton);
 
-            // Mock API request
-            signInMessage.textContent = 'Sign in successful!';
-            signInMessage.style.color = 'green';
+            setTimeout(() => {
+                const username = document.getElementById('signInUsername').value;
+                const password = document.getElementById('signInPassword').value;
+                const signInMessage = document.getElementById('signInMessage');
+
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(user => user.username === username && user.password === password);
+
+                if (user) {
+                    signInMessage.textContent = 'Sign in successful!';
+                    signInMessage.style.color = 'green';
+                    // Redirect to the Dashboard
+                    setTimeout(() => {
+                        hideLoading(signInButton);
+                        window.location.href = 'Dashboard.html';
+                    }, 1000);
+                } else {
+                    signInMessage.textContent = 'Invalid username or password';
+                    signInMessage.style.color = 'red';
+                    hideLoading(signInButton);
+                }
+            }, 1000); // Simulate network delay
         });
     }
-
-    document.getElementById('signInForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        // Perform sign-in logic (authentication, etc.)
-        // On successful login, redirect to the Dashboard
-        window.location.href = 'dashboard.html';
-    });
-
-    // Toggle between sign-in and sign-up forms
-    document.getElementById('toSignIn').addEventListener('click', function () {
-        document.getElementById('signUpContainer').classList.remove('active');
-        document.getElementById('signInContainer').classList.add('active');
-    });
-
-    document.getElementById('toSignUp').addEventListener('click', function () {
-        document.getElementById('signInContainer').classList.remove('active');
-        document.getElementById('signUpContainer').classList.add('active');
-    });
 });
